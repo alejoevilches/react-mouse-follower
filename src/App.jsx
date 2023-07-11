@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 function App() {
   const [enabled, setEnabled]=useState(false);
+  const [position, setPosition]=useState({x:0,y:0});
 
   const handleClick=()=>{
     setEnabled(!enabled);
@@ -11,7 +12,7 @@ function App() {
   useEffect(()=>{
     const handleMove=(e)=>{
       const {clientX, clientY}=e;
-      console.log(clientX, clientY)
+      setPosition({ x: clientX, y: clientY });
     }
     enabled
     ? window.addEventListener("pointermove", handleMove)
@@ -35,7 +36,7 @@ function App() {
         top: -25,
         width: 50,
         height: 50,
-        transform: `translate(0px, 0px)`
+        transform: `translate(${position.x}px, ${position.y}px)`
       }}
       />
       <button onClick={handleClick}>{enabled ? "Desactivar tracking" : "Activar tracking"}</button>
